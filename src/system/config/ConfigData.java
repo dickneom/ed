@@ -7,7 +7,7 @@ package system.config;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public enum ConfigData {
     APP_TITLE("APP_TITLE", "Titulo", "", "String", "Edificio"),
@@ -19,7 +19,7 @@ public enum ConfigData {
     
     DBASE_DIR_DATA("APP_DIR_DATA", "WOPTIONS_PNL_DATA_PATH", "", "String", "/home/richneom/Programas/Edificio/"),
     DBASE_DATA_FILE("DBASE_DATA_FILE", "WOPTIONS_PNL_DATA_DATABASE", "", "String", "edificio05.db"),
-//    DBASE_DATA_FULL_PATH("DBASE_CYBER_FULL_PATH", "Base de datos", "","String", "/home/richneom/Proyectos/Edificio/edificio05.db"), //
+//    DBASE_DATA_FULL_PATH("DBASE_CYBER_FULL_PATH", "Base de datos", "","String", "/home/DickNeoM/Proyectos/Edificio/edificio05.db"), //
     DBASE_DATA_USER("DBASE_CYBER_USER", "WOPTIONS_PNL_DATA_USER", "","String", ""), //    
     DBASE_DATA_PASSWORD("DBASE_CYBER_PASSWORD", "WOPTIONS_PNL_DATA_PASSWORD", "","String", ""),
     

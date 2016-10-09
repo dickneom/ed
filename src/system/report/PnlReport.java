@@ -30,7 +30,7 @@ import system.window.WindowFieldTable;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class PnlReport extends javax.swing.JPanel implements ActionListener {
 

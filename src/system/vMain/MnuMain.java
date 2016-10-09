@@ -5,9 +5,6 @@
  */
 package system.vMain;
 
-import console.DknConsole;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -16,16 +13,14 @@ import system.config.AppGlobal;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class MnuMain extends JMenuBar {
 
     private final WMainControl control;
-    private final ListenerMenuMain listener;
 
     public MnuMain(WMainControl control) {
         this.control = control;
-        this.listener = new ListenerMenuMain(control);
         
         // Menu Sistema
         JMenu mnuFile = crearMenu(AppGlobal.getText("WMAIN_MNU_SYSTEM_TEXT"), AppGlobal.getText("WMAIN_MNU_SYSTEM_TIP"));
@@ -169,68 +164,10 @@ public class MnuMain extends JMenuBar {
         }
         item.setActionCommand(comand);
         
-        item.addActionListener(listener);
+        item.addActionListener(control);
         
         menu.add(item);
         
         return item;
     }
-    
-    
-    
-    
-    
-    /**
-     * Acciones a tomar cuando se selecciona algun item del menu
-     */
-    private class ListenerMenuMain implements ActionListener {
-        
-        private final WMainControl control;
-
-        public ListenerMenuMain(WMainControl control) {
-            this.control = control;
-        }
-        
-        
-        
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String comand = e.getActionCommand();
-//            System.out.println("Menu. Accion. Origen. " + e.getSource() + " Accion: " + comand);
-            
-            String action;
-            if (comand.startsWith("LIST")) {
-                action = "LIST";
-            }
-            else if(comand.startsWith("REPORT")) {
-                action = "REPORT";
-            }
-            else {
-                action = comand;
-            }
-
-            switch (action) {
-                case "ABOUT":
-                    control.about();
-                    break;
-                case "EXIT":
-                    control.exit();
-                    break;
-                case "OPTIONS":
-                    control.options();
-                    break;
-                case "LIST":
-                    control.list("W" + comand);
-                    break;
-                case "REPORT":
-                    control.report("W" + comand);
-                    break;
-                default:
-                    DknConsole.error(Thread.currentThread().getStackTrace()[1].toString(), "ERROR. Comando no encontrado: " + comand);
-                    break;
-            }
-        }
-        
-    }
-    
 }

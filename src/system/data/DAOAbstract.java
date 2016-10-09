@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  * @param <T>
  * @param <TS> 
  */

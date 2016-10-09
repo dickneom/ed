@@ -23,7 +23,7 @@ import system.type.TypeDAO;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class PnlImpExcel extends javax.swing.JPanel {
 

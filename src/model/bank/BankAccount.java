@@ -7,7 +7,7 @@ package model.bank;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class BankAccount {
     private int id;

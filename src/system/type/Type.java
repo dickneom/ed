@@ -7,7 +7,7 @@ package system.type;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class Type {
     private int id;

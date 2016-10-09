@@ -19,7 +19,7 @@ import system.config.AppGlobal;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public abstract class DAOSQL {
     

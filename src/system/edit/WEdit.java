@@ -7,6 +7,7 @@ package system.edit;
 
 import console.DknConsole;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import model.bank.PnlEditBankAccount;
 import model.bank.PnlEditBankTrans;
 import model.contract.PnlEditContract;
@@ -23,14 +24,40 @@ import system.window.WindowData;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class WEdit extends JDialog {
 
     private final WindowData window;
     private PnlEdit pnlEdit;
     
+    /**
+     * Muestra una ventana para edicion de registros.<br>
+     * Dependiendo de los datos de la ventana se mostrará un panel de edicion diferente.
+     * @param owner ventana desde la que se llama.
+     * @param window datos de la ventana actual
+     * @param parentCode Actualmente no usado
+     * @param id id del registro a modificarse, -1 para crear un nuevo registro
+     */
     public WEdit(JDialog owner, WindowData window, String parentCode, int id) {
+        super(owner, window.isModal());
+        this.window = window;
+        
+        init(id);
+        
+        pack();
+        setLocationRelativeTo(owner);
+    }
+    
+    /**
+     * Muestra una ventana para edicion de registros.<br>
+     * Dependiendo de los datos de la ventana se mostrará un panel de edicion diferente.
+     * @param owner ventana desde la que se llama.
+     * @param window datos de la ventana actual
+     * @param parentCode Actualmente no usado
+     * @param id id del registro a modificarse, -1 para crear un nuevo registro
+     */
+    public WEdit(JFrame owner, WindowData window, String parentCode, int id) {
         super(owner, window.isModal());
         this.window = window;
         

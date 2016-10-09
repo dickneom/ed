@@ -10,7 +10,7 @@ import model.ente.*;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class WindowData {
     private int id;

@@ -17,7 +17,7 @@ import system.type.Types;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class PnlEditItem extends PnlEdit {
 

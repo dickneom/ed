@@ -6,7 +6,7 @@ package system.edit;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  * 2016-08
  */
 public abstract class PnlEdit extends javax.swing.JPanel {

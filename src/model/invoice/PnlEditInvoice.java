@@ -35,7 +35,7 @@ import system.window.WindowData;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class PnlEditInvoice extends PnlEdit {
 

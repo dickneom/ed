@@ -12,7 +12,7 @@ import system.window.WindowData;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class WList extends JDialog {
 

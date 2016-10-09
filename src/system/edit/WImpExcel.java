@@ -9,7 +9,7 @@ import system.window.WindowData;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class WImpExcel extends JDialog {
 

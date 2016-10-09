@@ -16,7 +16,7 @@ import static system.data.DAOSQL.getConection;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class WindowDAO extends DAOSQL {
     

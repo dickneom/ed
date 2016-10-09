@@ -19,7 +19,7 @@ import system.type.Types;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class PnlEditLocal extends PnlEdit {
 

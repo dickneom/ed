@@ -35,7 +35,7 @@ import system.type.TypeDAO;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class BankTransDAO extends DAOSQL {
     

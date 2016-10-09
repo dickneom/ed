@@ -17,7 +17,7 @@ import system.config.ConfigData;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class PnlDatos extends javax.swing.JPanel {
 

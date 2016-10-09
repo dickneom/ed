@@ -14,7 +14,7 @@ import system.window.WindowData;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class WMain extends JFrame {
 

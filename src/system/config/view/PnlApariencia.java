@@ -16,7 +16,7 @@ import system.config.ConfigData;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class PnlApariencia extends javax.swing.JPanel {
 

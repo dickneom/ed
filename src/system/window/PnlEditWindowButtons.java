@@ -11,7 +11,7 @@ import system.config.AppGlobal;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class PnlEditWindowButtons extends javax.swing.JPanel {
 

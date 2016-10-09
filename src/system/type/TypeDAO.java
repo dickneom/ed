@@ -16,7 +16,7 @@ import system.data.DAOSQL;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class TypeDAO extends DAOSQL {
     

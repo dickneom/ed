@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class Contract {
     

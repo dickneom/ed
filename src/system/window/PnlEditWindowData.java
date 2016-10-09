@@ -9,7 +9,7 @@ import system.config.AppGlobal;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class PnlEditWindowData extends javax.swing.JPanel {
     

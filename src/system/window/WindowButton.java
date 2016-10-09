@@ -7,7 +7,7 @@ package system.window;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class WindowButton {
     private String code;

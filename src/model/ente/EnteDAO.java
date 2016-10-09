@@ -14,7 +14,7 @@ import system.data.DAOSQL;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class EnteDAO extends DAOSQL {
     

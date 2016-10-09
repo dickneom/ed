@@ -7,7 +7,7 @@ package model.company;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class Company {
     

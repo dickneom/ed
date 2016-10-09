@@ -14,7 +14,7 @@ import system.edit.WEdit;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class PnlEditWindow extends PnlEdit {
 

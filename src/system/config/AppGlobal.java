@@ -21,7 +21,7 @@ import model.company.CompanyDAO;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class AppGlobal {
     public final static String APP_VERSION = "2.26";
@@ -232,7 +232,7 @@ public class AppGlobal {
     
     /**
      * Aplica el look and feel indicado al programa .
-     * Si no se indica, usara el que está por defecto en el sistema.
+     * Si no se indica o no se lo encuentra, usara el que está por defecto en el sistema.
      * @param lookName String con el nombre del tema visual.
      */
     public static void setLookAndFeel(String lookName) {
@@ -261,7 +261,7 @@ public class AppGlobal {
                 System.out.println("LookAndFeel. " + lookName + " - " + className);
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(AppConfig.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AppGlobal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

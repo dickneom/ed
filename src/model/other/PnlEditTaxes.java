@@ -15,7 +15,7 @@ import system.edit.WEdit;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class PnlEditTaxes extends PnlEdit {
 

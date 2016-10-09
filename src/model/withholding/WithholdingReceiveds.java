@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class WithholdingReceiveds extends LinkedList<WithholdingReceived>{
     

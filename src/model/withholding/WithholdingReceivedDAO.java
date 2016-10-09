@@ -20,7 +20,7 @@ import system.data.DAOSQL;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class WithholdingReceivedDAO extends DAOSQL {
     

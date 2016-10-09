@@ -6,19 +6,22 @@
 package system.vMain;
 
 import console.DknConsole;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import system.config.view.WEditOptions;
+import system.edit.WEdit;
 import system.list.WList;
 import system.window.WindowDAO;
 import system.window.WindowData;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
-public class WMainControl {
+public class WMainControl implements ActionListener {
 
     private final WMain wMain;
 
@@ -92,11 +95,71 @@ public class WMainControl {
                 w.setVisible(true);
             }
             else {
-                DknConsole.error(Thread.currentThread().getStackTrace()[1].toString(), "Codigo de ventana no encontrado. Ventana nula. Código: " + code);
+                DknConsole.error(Thread.currentThread().getStackTrace()[1].toString(), "Código de ventana no encontrado. Ventana nula. Código: " + code);
             }
         } catch (SQLException | ClassNotFoundException ex) {
             DknConsole.error(Thread.currentThread().getStackTrace()[1].toString(), "Hubo un error al cargar los datos de la ventana. Código: " + code);
             Logger.getLogger(WMainControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void edit(String code) {
+        try {
+            WindowData window = WindowDAO.getWindow(code);
+            if (window != null) {
+                DknConsole.msg(Thread.currentThread().getStackTrace()[1].toString(), "Mostranco ventana código: " + code);
+                WEdit w = new WEdit(wMain, window, code, -1);
+                w.setVisible(true);
+            }
+            else {
+                DknConsole.error(Thread.currentThread().getStackTrace()[1].toString(), "Código de la ventana no encontrado. Ventana nula. Código: " + code);
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            DknConsole.error(Thread.currentThread().getStackTrace()[1].toString(), "Hubo un error al cargar los datos de la ventana. Código: " + code);
+            Logger.getLogger(WMainControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String comand = e.getActionCommand();
+            
+        String action;
+        if (comand.startsWith("LIST")) {
+            action = "LIST";
+        }
+        else if(comand.startsWith("REPORT")) {
+            action = "REPORT";
+        }
+        else if(comand.startsWith("EDIT")) {
+            action = "EDIT";
+        }
+        else {
+            action = comand;
+        }
+
+        switch (action) {
+            case "ABOUT":
+                about();
+                break;
+            case "EXIT":
+                exit();
+                break;
+            case "OPTIONS":
+                options();
+                break;
+            case "LIST":
+                list("W" + comand);
+                break;
+            case "REPORT":
+                report("W" + comand);
+                break;
+            case "EDIT":
+                edit("W" + comand);
+                break;
+            default:
+                DknConsole.error(Thread.currentThread().getStackTrace()[1].toString(), "Comando no encontrado: " + comand);
+                break;
         }
     }
 }

@@ -18,7 +18,7 @@ import system.data.DAOSQL;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class ContractDAO extends DAOSQL {
     

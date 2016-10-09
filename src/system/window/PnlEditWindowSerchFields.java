@@ -11,7 +11,7 @@ import system.config.AppGlobal;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class PnlEditWindowSerchFields extends javax.swing.JPanel {
 

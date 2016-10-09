@@ -13,7 +13,7 @@ import system.data.DAOSQL;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class ItemDAO extends DAOSQL {
     

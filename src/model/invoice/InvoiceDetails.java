@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class InvoiceDetails extends LinkedList<InvoiceDetail> {
     

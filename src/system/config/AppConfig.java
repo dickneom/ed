@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class AppConfig {
     

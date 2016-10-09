@@ -7,7 +7,7 @@ package model.ente;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class Ente {
     private int id;

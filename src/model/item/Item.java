@@ -7,7 +7,7 @@ package model.item;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class Item {
     

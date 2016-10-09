@@ -20,7 +20,7 @@ import system.type.Types;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class PnlEditBankTrans extends PnlEdit {
 

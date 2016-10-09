@@ -7,7 +7,7 @@ package model.local;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class Local {
     

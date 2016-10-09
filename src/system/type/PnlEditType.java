@@ -16,7 +16,7 @@ import system.window.WindowData;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class PnlEditType extends PnlEdit {
 

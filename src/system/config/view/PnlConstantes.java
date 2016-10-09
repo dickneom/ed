@@ -15,7 +15,7 @@ import system.config.ConfigData;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class PnlConstantes extends javax.swing.JPanel {
 

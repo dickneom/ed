@@ -7,7 +7,7 @@ package system.window;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class WindowFieldSearch {
     // Campos para la tabla (visibles y ocultas) y campos para buscar y ordenar

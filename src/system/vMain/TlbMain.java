@@ -5,39 +5,37 @@
  */
 package system.vMain;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
+import javax.swing.JButton;
 import javax.swing.JToolBar;
+import system.config.AppGlobal;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
-public class TlbMain extends JToolBar implements ActionListener {
+public class TlbMain extends JToolBar {
 
     private final WMainControl control;
 
     public TlbMain(WMainControl control) {
         this.control = control;
         
-        
+        add(newButton(AppGlobal.getText("WMAIN_BTN_INVOICE_TEXT"), AppGlobal.getText("WMAIN_BTN_INVOICE_TIP"), "EDIT_INVOICES"));
+        add(newButton(AppGlobal.getText("WMAIN_BTN_PAYMENT_TEXT"), AppGlobal.getText("WMAIN_BTN_PAYMENT_TIP"), "EDIT_PAYMENTS"));
     }
     
-    void addButton (JMenu menu, String text, String command) {
-        JMenuItem mni = new JMenuItem();
+    private JButton newButton (String text, String tip, String command) {
+        JButton btn = new JButton();
         
-        mni.setText(text);
-        mni.setActionCommand(command);
-        mni.addActionListener(this);
+        btn.setText(text);
         
-        menu.add(mni);
+        if (tip != null && !tip.isEmpty()) {
+            btn.setToolTipText(tip);
+        }
+        
+        btn.setActionCommand(command);
+        btn.addActionListener(control);
+        
+        return btn;
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

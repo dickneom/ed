@@ -37,7 +37,7 @@ import table.FormatoTabla;
 
 /**
  *
- * @author richneom
+ * @author DickNeoM
  */
 public class PnlList extends javax.swing.JPanel implements ActionListener {
 
