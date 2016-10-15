@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.report.WClosingCash;
 import system.config.view.WEditOptions;
 import system.edit.WEdit;
 import system.list.WList;
@@ -91,8 +92,14 @@ public class WMainControl implements ActionListener {
             WindowData window = WindowDAO.getWindow(code);
             if (window != null) {
                 DknConsole.msg(Thread.currentThread().getStackTrace()[1].toString(), "Mostranco ventana código: " + code);
-                WList w = new WList(wMain, window);
-                w.setVisible(true);
+                if (window.getName().toUpperCase().equals("WREPORT_CLOSINGCASH")) {
+                    WClosingCash w = new WClosingCash(wMain, false, window);
+                    w.setVisible(true);
+                }
+                else {
+                    WList w = new WList(wMain, window);
+                    w.setVisible(true);
+                }
             }
             else {
                 DknConsole.error(Thread.currentThread().getStackTrace()[1].toString(), "Código de ventana no encontrado. Ventana nula. Código: " + code);

@@ -30,6 +30,7 @@ public class WEdit extends JDialog {
 
     private final WindowData window;
     private PnlEdit pnlEdit;
+    private int idSel;
     
     /**
      * Muestra una ventana para edicion de registros.<br>
@@ -66,6 +67,29 @@ public class WEdit extends JDialog {
         pack();
         setLocationRelativeTo(owner);
     }
+    
+    
+    /**
+     * Muestra una ventana para edicion de registros.<br>
+     * Dependiendo de los datos de la ventana se mostrará un panel de edicion diferente.
+     * @param owner ventana desde la que se llama.
+     * @param window datos de la ventana actual
+     * @param parentCode Actualmente no usado
+     * @param id id del registro a modificarse, -1 para crear un nuevo registro
+     * @param idSel en caso de crear un registro que esta vinclulado con otro registro se puede llamar desde ese registro, este dato es el id del otro registro.
+     */
+    public WEdit(JDialog owner, WindowData window, String parentCode, int id, int idSel) {
+        super(owner, window.isModal());
+        this.window = window;
+        this.idSel = idSel;
+        
+        init(id);
+        
+        pack();
+        setLocationRelativeTo(owner);
+    }
+    
+    
     
     private void init(int id) {
         if (window != null) {
@@ -119,7 +143,7 @@ public class WEdit extends JDialog {
                     pnlEdit = new PnlEditLocal(this, id);
                     break;
                 case "WEDIT_PAYMENTS":
-                    pnlEdit = new PnlEditPayment(this, id);
+                    pnlEdit = new PnlEditPayment(this, id, idSel);
                     break;
                 case "WEDIT_WITHHOLDINGRECEIVED":
                     pnlEdit = new PnlEditWithholdingReceived(this, id);

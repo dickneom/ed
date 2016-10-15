@@ -118,7 +118,9 @@ public class MnuMain extends JMenuBar {
                 addItem(mnuOthersGlobal, AppGlobal.getText("WMAIN_MNI_REGTYPES"), "Lista de Tipos de Registro.", "LIST_REGTYPES");
                 addItem(mnuOthersGlobal, AppGlobal.getText("WMAIN_MNI_TAXES"), "Lista de tipos de Impuestos.", "LIST_TAXES");
             JMenu mnuSystemGlobal = addMenu(mnuGlobal, AppGlobal.getText("WMAIN_MNU_SYSTEM"), "Listado y edición de Contratos.");
-                addItem(mnuSystemGlobal, AppGlobal.getText("WMAIN_MNI_WINDOWS"), "Lista de ventanas.", "LIST_WINDOWS");
+                addItem(mnuSystemGlobal, AppGlobal.getText("WMAIN_MNI_WINDOWS_TEXT"), AppGlobal.getText("WMAIN_MNI_WINDOWS_TIP"), "LIST_WINDOWS");
+                addItem(mnuSystemGlobal, AppGlobal.getText("WMAIN_MNI_SQL_TEXT"), AppGlobal.getText("WMAIN_MNI_SQL_TIP"), "LIST_SQL");
+                addItem(mnuSystemGlobal, AppGlobal.getText("WMAIN_MNI_REPORTS_TEXT"), AppGlobal.getText("WMAIN_MNI_REPORTS_TIP"), "LIST_REPORTS");
         add(mnuGlobal);
         
         JMenu mnuHelp = crearMenu(AppGlobal.getText("WMAIN_MNU_HELP"), "");
@@ -129,9 +131,9 @@ public class MnuMain extends JMenuBar {
     private JMenu crearMenu(String text, String tip) {
         JMenu menu = new JMenu();
         menu.setText(text);
-        if (tip != null && !tip.isEmpty()) {
-            menu.setToolTipText(tip);
-        }
+//        if (tip != null && !tip.isEmpty()) {
+//            menu.setToolTipText(tip);
+//        }
         
         return menu;
     }
@@ -139,9 +141,9 @@ public class MnuMain extends JMenuBar {
     private JMenu addMenu(JMenu menuParent, String text, String tip) {
         JMenu menu = new JMenu();
         menu.setText(text);
-        if (tip != null && !tip.isEmpty()) {
-            menu.setToolTipText(tip);
-        }
+//        if (tip != null && !tip.isEmpty()) {
+//            menu.setToolTipText(tip);
+//        }
         
         menuParent.add(menu);
         

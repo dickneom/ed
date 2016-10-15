@@ -47,16 +47,18 @@ public class PnlEditPayment extends PnlEdit {
     private final int id;
     private Payment payment;
     private double payValueRecorded;
+    private final int invoiceId;
 
     /**
      * Creates new form PnlEditBank
      * @param wEdit
      * @param id
      */
-    public PnlEditPayment(WEdit wEdit, int id) {
+    public PnlEditPayment(WEdit wEdit, int id, int invoiceId) {
         initComponents();
         this.wEdit = wEdit;
         this.id = id;
+        this.invoiceId = invoiceId;
         
         init();
         
@@ -128,6 +130,11 @@ public class PnlEditPayment extends PnlEdit {
             
             changeType();
             changeMethod();
+            
+            if (invoiceId > 0) {
+                payment.setIdType(1);
+                payment.setIdInvoice(invoiceId);
+            }
         }
         else {
             try {
@@ -142,7 +149,7 @@ public class PnlEditPayment extends PnlEdit {
     
     @Override
     protected final void showData() {
-        lblId.setText(String.valueOf(id));
+        lblId.setText(String.valueOf(id));            
 
         if (payment == null) {
             DknConsole.error(Thread.currentThread().getStackTrace()[1].toString(), "El pago es nulo.");

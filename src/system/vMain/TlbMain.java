@@ -22,6 +22,7 @@ public class TlbMain extends JToolBar {
         
         add(newButton(AppGlobal.getText("WMAIN_BTN_INVOICE_TEXT"), AppGlobal.getText("WMAIN_BTN_INVOICE_TIP"), "EDIT_INVOICES"));
         add(newButton(AppGlobal.getText("WMAIN_BTN_PAYMENT_TEXT"), AppGlobal.getText("WMAIN_BTN_PAYMENT_TIP"), "EDIT_PAYMENTS"));
+        add(newButton(AppGlobal.getText("WMAIN_BTN_CLOSINGCASH_TEXT"), AppGlobal.getText("WMAIN_BTN_CLOSINGCASH_TIP"), "REPORT_CLOSINGCASH"));
     }
     
     private JButton newButton (String text, String tip, String command) {
