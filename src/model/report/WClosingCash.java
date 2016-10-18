@@ -6,6 +6,7 @@
 package model.report;
 
 import DknFile.Archivo;
+import DknFile.Excel;
 import DknTime.DateTime;
 import console.DknConsole;
 import java.io.File;
@@ -172,12 +173,12 @@ public class WClosingCash extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(lblRange)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jdcFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jdcFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jdcFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jdcFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                 .addComponent(btnToPdf)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnToExcel)
@@ -386,123 +387,150 @@ public class WClosingCash extends javax.swing.JDialog {
             fechaHasta = DateTime.getDateUtilToString(jdcFechaHasta.getDate(), AppGlobal.getFormatDate());
         }
         
-//        if (sqlReporte != null && !sqlReporte.isEmpty()) {
-//            String sqlRep = sqlReporte + " WHERE abonos.fecha BETWEEN '" + fechaDesde +
-//                    "' AND '" + fechaHasta + "'";
-//            sqlRep += " ORDER BY abonos.fecha";
-            String sqlRep = "SELECT * FROM vpayments WHERE date BETWEEN '" + fechaDesde +
-                    "' AND '" + fechaHasta + "'";
-            sqlRep += " ORDER BY date";
-            
-            double sumFactura = 0.0, sumDocumento = 0.0, sumAbono = 0.0;
-            try (Connection con = DAOSQL.getConection(AppGlobal.getDataBase()); Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(sqlRep)) {
-                int numCols = rs.getMetaData().getColumnCount();
-                model.setColumnCount(0);
-                for (int i=0; i<numCols; i++) {
-                    model.addColumn(rs.getMetaData().getColumnName(i+1));
-                }
-
-                model.setRowCount(0);
-                while (rs.next()) {
-                    Object[] fila = new Object[numCols];
-
-                    for (int i=0; i<numCols; i++) {
-                        fila[i] = rs.getObject(i+1);
-                    }
-
-                    sumFactura += rs.getDouble("facValue");
-                    sumDocumento += rs.getDouble("depValue");
-                    sumAbono += rs.getDouble("value");
-
-                    model.addRow(fila);
-                }
-            } catch (ClassNotFoundException | SQLException ex) {
-                VError.show(this, ex);
-                Logger.getLogger(WClosingCash.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        
-            txtTotalFacturas.setText(AppGlobal.getFormatDecimalShort().format(sumFactura));
-            txtTotalDocs.setText(AppGlobal.getFormatDecimalShort().format(sumDocumento));
-            txtTotalAbonos.setText(AppGlobal.getFormatDecimalShort().format(sumAbono));
-//        }
-        
-        generarDepPendientes(fechaHasta);
-        generarDepSaldo(fechaHasta);
-        generarFactSaldo(fechaHasta);
+        try {
+            generarCierreCaja(fechaDesde, fechaHasta);
+            generarDepPendientes(fechaHasta);
+            generarDepSaldo(fechaHasta);
+            generarFactSaldo(fechaHasta);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(WClosingCash.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnGenerateActionPerformed
 
-    private void generarDepPendientes(String fechaHasta) {
-//        SQL sql = SQLDAO.get("DepositosPendientes");
-//        if (sql != null) {
-//            String sqlRep = sql.getSql();
-//            sqlRep = sqlRep.replace("FECHA_HASTA", fechaHasta);
-//        
-//            BDatos bd = new BDatos("edificio");
-//            bd.conectar();
-//            ResultSet rs;
-//            try {
-//                rs = bd.get(sqlRep);
-//                llenarTabla((DefaultTableModel) tblDepPendientes.getModel(), rs);
-//            } catch (SQLException ex) {
-//                Logger.getLogger(WClosingCash.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            finally {
-//                bd.desconectar();
-//            }
-//        }
-    }
-    
-    private void generarDepSaldo(String fechaHasta) {
-//        SQL sql = SQLDAO.get("DepositosConSaldo");
-//        if (sql != null) {
-//            String sqlRep = sql.getSql();
-//            sqlRep = sqlRep.replace("FECHA_HASTA", fechaHasta);
-//        
-//            BDatos bd = new BDatos("edificio");
-//            bd.conectar();
-//            ResultSet rs;
-//            try {
-//                rs = bd.get(sqlRep);
-//                llenarTabla((DefaultTableModel) tblDepSaldo.getModel(), rs);
-//            } catch (SQLException ex) {
-//                Logger.getLogger(WClosingCash.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            finally {
-//                bd.desconectar();
-//            }
-//        }
-    }
-    
-    private void generarFactSaldo(String fechaHasta) {
-//        SQL sql = SQLDAO.get("FacturasConSaldo");
-//        if (sql != null) {
-//            String sqlRep = sql.getSql();
-//            sqlRep = sqlRep.replace("FECHA_HASTA", fechaHasta);
-//        
-//            BDatos bd = new BDatos("edificio");
-//            bd.conectar();
-//            ResultSet rs;
-//            try {
-//                rs = bd.get(sqlRep);
-//                llenarTabla((DefaultTableModel) tblFacSaldo.getModel(), rs);
-//            } catch (SQLException ex) {
-//                Logger.getLogger(WClosingCash.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            finally {
-//                bd.desconectar();
-//            }
-//        }
-    }
-    
-    private void llenarTabla(DefaultTableModel modelo, ResultSet rs) throws SQLException {
-        int numCols = rs.getMetaData().getColumnCount();
+    private void generarCierreCaja(String fechaDesde, String fechaHasta) throws ClassNotFoundException, SQLException {
+        String reportCode = "CLOSINGCASH";
+        String sqlRep = getSql(reportCode);
+
+        if (sqlRep == null) {
+            DknConsole.error(Thread.currentThread().getStackTrace()[1].toString(), "No se encontró el reporte. Código: " + reportCode);
+            return;
+        }
+        sqlRep += " WHERE date BETWEEN '" + fechaDesde + "' AND '" + fechaHasta + "'";
+        sqlRep += " ORDER BY date";
+        DknConsole.debug(Thread.currentThread().getStackTrace()[1].toString(), "Reportes Cierre de Caja. Sql: " + sqlRep);
         
-        modelo.setColumnCount(0);
-        for (int i=0; i<numCols; i++) {
-            modelo.addColumn(rs.getMetaData().getColumnName(i+1));
+        double sumFactura = 0.0, sumDocumento = 0.0, sumAbono = 0.0;
+        try (Connection con = DAOSQL.getConection(AppGlobal.getDataBase());
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(sqlRep)) {
+            
+            int numCols = rs.getMetaData().getColumnCount();
+            model.setColumnCount(0);
+            for (int i=0; i<numCols; i++) {
+                model.addColumn(rs.getMetaData().getColumnName(i+1));
+            }
+
+            model.setRowCount(0);
+            while (rs.next()) {
+                Object[] fila = new Object[numCols];
+
+                for (int i=0; i<numCols; i++) {
+                    fila[i] = rs.getObject(i+1);
+                }
+
+                sumFactura += rs.getDouble("factotal");
+                sumDocumento += rs.getDouble("payvalue");
+                sumAbono += rs.getDouble("value");
+
+                model.addRow(fila);
+            }
+        }
+
+        txtTotalFacturas.setText(AppGlobal.getFormatDecimalShort().format(sumFactura));
+        txtTotalDocs.setText(AppGlobal.getFormatDecimalShort().format(sumDocumento));
+        txtTotalAbonos.setText(AppGlobal.getFormatDecimalShort().format(sumAbono));
+    }
+    
+    /**
+     * Busca en la tabla <code>report</code> la instucción sql.
+     * @param code código del reporte.
+     * @return 
+     */
+    private String getSql(String code) {
+        String sqlRep = null;
+        String sql = "SELECT * FROM vreport WHERE code = '" + code + "'";
+        
+        try (Connection con = DAOSQL.getConection(AppGlobal.getDataBase());
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+            
+            sqlRep = rs.getString("sql");
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(WClosingCash.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        modelo.setRowCount(0);
+        return sqlRep;
+    }
+    
+    private void generarDepPendientes(String dateFinal) throws ClassNotFoundException, SQLException {
+        String reportCode = "BANKTRANS_NOTUSED";
+        String sqlRep = getSql(reportCode);
+
+        if (sqlRep != null) {
+            sqlRep = sqlRep.replace("FECHA_HASTA", dateFinal);
+            DknConsole.msg(Thread.currentThread().getStackTrace()[1].toString(), "Reporte de depositos pendientes Sql: " + sqlRep);
+            
+            try (Connection con = DAOSQL.getConection(AppGlobal.getDataBase());
+                    Statement stmt = con.createStatement();
+                    ResultSet rs = stmt.executeQuery(sqlRep)) {
+                
+                fillTable((DefaultTableModel) tblDepPendientes.getModel(), rs);
+            }
+        }
+        else {
+            DknConsole.error(Thread.currentThread().getStackTrace()[1].toString(), "No se encontró el reporte. Código:" + reportCode);
+        }
+    }
+    
+    private void generarDepSaldo(String dateFinal) throws ClassNotFoundException, SQLException {
+        String reportCode = "BANKTRANS_WITH_BALANCE";
+        String sqlRep = getSql(reportCode);
+
+        if (sqlRep != null) {
+            sqlRep = sqlRep.replace("FECHA_HASTA", dateFinal);
+            DknConsole.msg(Thread.currentThread().getStackTrace()[1].toString(), "Reporte de depositos con saldo. Sql: " + sqlRep);
+            
+            try (Connection con = DAOSQL.getConection(AppGlobal.getDataBase());
+                    Statement stmt = con.createStatement();
+                    ResultSet rs = stmt.executeQuery(sqlRep)) {
+                
+                fillTable((DefaultTableModel) tblDepSaldo.getModel(), rs);
+            }
+        }
+        else {
+            DknConsole.error(Thread.currentThread().getStackTrace()[1].toString(), "No se encontró el reporte. Código:" + reportCode);
+        }
+    }
+    
+    private void generarFactSaldo(String dateFinal) throws ClassNotFoundException, SQLException {
+        String reportCode = "INVOICE_WITH_BALANCE";
+        String sqlRep = getSql(reportCode);
+
+        if (sqlRep != null) {
+            sqlRep = sqlRep.replace("FECHA_HASTA", dateFinal);
+            DknConsole.msg(Thread.currentThread().getStackTrace()[1].toString(), "Reporte de depositos con saldo. Sql: " + sqlRep);
+            
+            try (Connection con = DAOSQL.getConection(AppGlobal.getDataBase());
+                    Statement stmt = con.createStatement();
+                    ResultSet rs = stmt.executeQuery(sqlRep)) {
+                
+                fillTable((DefaultTableModel) tblFacSaldo.getModel(), rs);
+            }
+        }
+        else {
+            DknConsole.error(Thread.currentThread().getStackTrace()[1].toString(), "No se encontró el reporte. Código:" + reportCode);
+        }
+    }
+    
+    private void fillTable(DefaultTableModel model, ResultSet rs) throws SQLException {
+        int numCols = rs.getMetaData().getColumnCount();
+        
+        model.setColumnCount(0);
+        for (int i=0; i<numCols; i++) {
+            model.addColumn(rs.getMetaData().getColumnName(i+1));
+        }
+        
+        model.setRowCount(0);
         while (rs.next()) {
             Object[] fila = new Object[numCols];
             
@@ -510,7 +538,7 @@ public class WClosingCash extends javax.swing.JDialog {
                 fila[i] = rs.getObject(i+1);
             }
                 
-            modelo.addRow(fila);
+            model.addRow(fila);
         }
     }
     
@@ -518,84 +546,127 @@ public class WClosingCash extends javax.swing.JDialog {
     private void btnToExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToExcelActionPerformed
         DknConsole.msg(Thread.currentThread().getStackTrace()[1].toString(), "Enviando a excel el Cierre de Caja.");
         
-//        if (jdcFechaDesde.getDate() == null || jdcFechaHasta.getDate() == null) {
-//            VError.show(this, "Las fechas no pueden estar vacias");
-//            return;
-//        }
-//
-//        String sqlRep;
-//        
-//        String fechaDesde = DateTime.getDateUtilToString(jdcFechaDesde.getDate(), AppGlobal.getFormatDate());
-//        String fechaHasta = DateTime.getDateUtilToString(jdcFechaHasta.getDate(), AppGlobal.getFormatDate());
-//        
-//        File fileXls = Archivo.obtenerArchivo(this, ".xls", AppGlobal.getDirWorking(), Archivo.OpenMode.WRITE);
-//        AppGlobal.setDirWorking(Archivo.getRuta(fileXls));
-//        
-//        boolean exportado = true;
-//        if (fileXls != null) {
-//            BDatos bde = new BDatos("edificio");
-//            
-//            Excel e = new Excel(fileXls);
-//            
-//            // Reporte de abonos recibidos entre dos fechas
-//            sqlRep = sqlReporte + " WHERE abonos.fecha BETWEEN '" + fechaDesde +
-//                    "' AND '" + fechaHasta + "'";
-//            sqlRep += " ORDER BY abonos.fecha";
-//            String nombreHoja = "Cierre";
-//            String titulo = "Cierre de Caja";
-//            String subtitulo = "Desde: " + fechaDesde + " hasta: " + fechaHasta;;
-//            if (!e.agregarSqlaExcel(bde, sqlRep, nombreHoja, titulo, subtitulo)) {
-//                exportado = false;
-//            }
-//            
-//            // Reporte de depositos con saldo hasta la fecha indicada"
-//            SQL sql = SQLDAO.get("DepositosConSaldo");
-//            sqlRep = sql.getSql();
-//
-//            sqlRep = sqlRep.replace("FECHA_HASTA", fechaHasta);
-//            nombreHoja = "Dep con saldo";
-//            titulo = "Depositos con Saldo.";
-//            subtitulo = "Hasta: " + fechaHasta;
-//            if (!e.agregarSqlaExcel(bde, sqlRep, nombreHoja, titulo, subtitulo)) {
-//                exportado = false;
-//            }
-//            
-//            // Reporte de facturas con saldo hasta la fecha indicada
-//            sql = SQLDAO.get("FacturasConSaldo");
-//            sqlRep = sql.getSql();
-//
-//            sqlRep = sqlRep.replace("FECHA_HASTA", fechaHasta);
-//            nombreHoja = "Fact con saldo";
-//            titulo = "Facturas con Saldo.";
-//            subtitulo = "Hasta: " + fechaHasta;
-//            if (!e.agregarSqlaExcel(bde, sqlRep, nombreHoja, titulo, subtitulo)) {
-//                exportado = false;
-//            }
-//            
-//            // Reporte de depositos pendiente hasta la fecha indicada
-//            sql = SQLDAO.get("DepositosPendientes");
-//            sqlRep = sql.getSql();
-//
-//            sqlRep = sqlRep.replace("FECHA_HASTA", fechaHasta);
-//            nombreHoja = "Dep pendientes";
-//            titulo = "Depositos pendientes.";
-//            subtitulo = "Hasta: " + fechaHasta;
-//            if (!e.agregarSqlaExcel(bde, sqlRep, nombreHoja, titulo, subtitulo)) {
-//                exportado = false;
-//            }
-//            
-//            e.grabar();
-//            
-//            if (exportado) {
-//                JOptionPane.showMessageDialog(this, "Exportado a: " + fileXls.getAbsolutePath(), "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-//            }
-//            else {
-//                JOptionPane.showMessageDialog(this, "No exportado", "Error", JOptionPane.ERROR_MESSAGE);
-//            }
-//        }
-//        else {
-//            VError.show(this, "Ningun archivo seleccionado.");
-//        }
+        
+        if (jdcFechaDesde.getDate() == null || jdcFechaHasta.getDate() == null) {
+            VError.show(this, "Las fechas no pueden estar vacias.");
+            return;
+        }
+
+        String sqlRep;
+        
+        String fechaDesde = DateTime.getDateUtilToString(jdcFechaDesde.getDate(), AppGlobal.getFormatDate());
+        String dateFinal = DateTime.getDateUtilToString(jdcFechaHasta.getDate(), AppGlobal.getFormatDate());
+        
+        File fileXls = Archivo.obtenerArchivo(this, ".xls", AppGlobal.getDirWorking(), Archivo.OpenMode.WRITE);
+        AppGlobal.setDirWorking(Archivo.getRuta(fileXls));
+        
+        boolean exportado = true;
+        if (fileXls != null) {
+            try {
+                Excel e = new Excel(fileXls);
+                
+                // Exportando Cierre de Caja
+                String reportCode = "CLOSINGCASH";
+                sqlRep = getSql(reportCode);
+
+                sqlRep += " WHERE date BETWEEN '" + fechaDesde + "' AND '" + dateFinal + "'";
+                sqlRep += " ORDER BY date";
+                DknConsole.msg(Thread.currentThread().getStackTrace()[1].toString(), "Exportando a Excel. Cierre de Caja. Sql: " + sqlRep + "...");
+
+                String nombreHoja = "Cierre";
+                String titulo = "Cierre de Caja";
+                String subtitulo = "Desde: " + fechaDesde + " hasta: " + dateFinal;
+                Connection con = DAOSQL.getConection(AppGlobal.getDataBase());
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(sqlRep);
+                
+                if (!e.addResultSetAExcel(rs, nombreHoja, titulo, subtitulo)) {
+                    exportado = false;
+                    DknConsole.msgIsOk(false);
+                }
+                else {
+                    DknConsole.msgIsOk(true);
+                }
+                
+                
+                // Reporte de depositos con saldo hasta la fecha indicada"
+                reportCode = "BANKTRANS_WITH_BALANCE";
+                sqlRep = getSql(reportCode);
+
+                sqlRep = sqlRep.replace("FECHA_HASTA", dateFinal);
+                DknConsole.msg(Thread.currentThread().getStackTrace()[1].toString(), "Exportando a Excel. Depositos con saldo. Sql: " + sqlRep + "...");
+
+                nombreHoja = "Dep Saldo";
+                titulo = "Depositos con Saldo";
+                subtitulo = "Hasta: " + dateFinal;
+                
+                rs = stmt.executeQuery(sqlRep);
+                if (!e.addResultSetAExcel(rs, nombreHoja, titulo, subtitulo)) {
+                    exportado = false;
+                    DknConsole.msgIsOk(false);
+                }
+                else {
+                    DknConsole.msgIsOk(true);
+                }
+                
+                
+                // Reporte de depositos pendientes hasta la fecha indicada
+                reportCode = "BANKTRANS_NOTUSED";
+                sqlRep = getSql(reportCode);
+
+                sqlRep = sqlRep.replace("FECHA_HASTA", dateFinal);
+                DknConsole.msg(Thread.currentThread().getStackTrace()[1].toString(), "Exportando a Excel. Depositos pendientes. Sql: " + sqlRep + "...");
+
+                nombreHoja = "Dep Pendientes";
+                titulo = "Depositos Pendientes";
+                subtitulo = "Hasta: " + dateFinal;
+                
+                rs = stmt.executeQuery(sqlRep);
+                if (!e.addResultSetAExcel(rs, nombreHoja, titulo, subtitulo)) {
+                    exportado = false;
+                    DknConsole.msgIsOk(false);
+                }
+                else {
+                    DknConsole.msgIsOk(true);
+                }
+
+                // Reporte de facturas con saldo hasta la fecha indicada
+                reportCode = "INVOICE_WITH_BALANCE";
+                sqlRep = getSql(reportCode);
+
+                sqlRep = sqlRep.replace("FECHA_HASTA", dateFinal);
+                DknConsole.msg(Thread.currentThread().getStackTrace()[1].toString(), "Exportando a Excel. Facturas con Saldo. Sql: " + sqlRep + "...");
+
+                nombreHoja = "Fac Saldo";
+                titulo = "Facturas con Saldo";
+                subtitulo = "Hasta: " + dateFinal;
+                
+                rs = stmt.executeQuery(sqlRep);
+                if (!e.addResultSetAExcel(rs, nombreHoja, titulo, subtitulo)) {
+                    exportado = false;
+                    DknConsole.msgIsOk(false);
+                }
+                else {
+                    DknConsole.msgIsOk(true);
+                }
+
+                e.save();
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(WClosingCash.class.getName()).log(Level.SEVERE, null, ex);
+                exportado = false;
+            }
+            
+            
+            if (exportado) {
+                JOptionPane.showMessageDialog(this, "Exportado a: " + fileXls.getAbsolutePath(), "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "No exportado", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } // Fin if fileSls != null
+        else {
+            VError.show(this, "Ningun archivo seleccionado.");
+        }
     }//GEN-LAST:event_btnToExcelActionPerformed
 
     private void cmbPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPeriodoActionPerformed
@@ -605,176 +676,179 @@ public class WClosingCash extends javax.swing.JDialog {
         
         int year = DateTime.getYear(DateTime.getNow());
         int month = DateTime.getMonth(DateTime.getNow());
-        int day = DateTime.getDay(DateTime.getNow());
-        int yearInit, monthInit, dayInit, yearFinal, monthFinal, dayFinal;
+//        int day = DateTime.getDay(DateTime.getNow());
+//        int yearInit, monthInit, dayInit, yearFinal, monthFinal, dayFinal;
         
         Calendar c = Calendar.getInstance();
         java.util.Date dateInit, dateFinal;
         java.util.Date dateNow = DateTime.getNow();
         c.setTime(dateNow);
         
-        if (sel.equals("Hoy")) { // ya
-            jdcFechaDesde.setDate(dateNow);
-            jdcFechaHasta.setDate(dateNow);
-        }
-        else if (sel.equals("Ayer")) { // ya
-            c.add(Calendar.DAY_OF_YEAR, -1);
-            dateInit = c.getTime();
-            dateFinal = dateInit;
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
-        }
-        else if (sel.equals("Ultima semana")) { // ya
-            c.add(Calendar.DAY_OF_YEAR, -7);
-            dateInit = c.getTime();
-            dateFinal = dateNow;
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
-        }
-        else if (sel.equals("Este mes")) {  // ya
-            c.set(Calendar.DATE, 1);
-            dateInit = c.getTime();
-            dateFinal = dateNow;
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
-        }
-        else if (sel.equals("Mes anterior")) {
-            c.set(Calendar.DATE, 1);
-            c.add(Calendar.MONTH, -1);
-            dateInit = c.getTime();
-            
-            c.setTime(dateNow);
-            c.set(Calendar.DATE, 1);
-            c.add(Calendar.DATE, -1);
-            dateFinal = c.getTime();
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
-        }
-        else if (sel.equals("Este año")) {
-            c.set(Calendar.DATE, 1);
-            c.set(Calendar.MONTH, 0);
-            dateInit = c.getTime();
-            dateFinal = dateNow;
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
-        }
-        else if (sel.equals("A futuro")) {
-            dateInit = dateNow;
-            c.add(Calendar.YEAR, 10);
-            c.set(Calendar.MONTH, 0);
-            c.set(Calendar.DATE, 1);
-            c.add(Calendar.DATE, -1);
-            dateFinal = c.getTime();
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
-        }
-        else if (sel.equals("Enero")) {
-            if (month < 0) {
-                year--;
-            }
-            dateInit = DateTime.getDateFisrtDayMonth(1, year);
-            dateFinal = DateTime.getDateLastDayMonth(1, year);
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
-        }
-        else if (sel.equals("Febrero")) {
-            if (month < 1) {
-                year--;
-            }
-            dateInit = DateTime.getDateFisrtDayMonth(2, year);
-            dateFinal = DateTime.getDateLastDayMonth(2, year);
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
-        }
-        else if (sel.equals("Marzo")) {
-            if (month < 2) {
-                year--;
-            }
-            dateInit = DateTime.getDateFisrtDayMonth(3, year);
-            dateFinal = DateTime.getDateLastDayMonth(3, year);
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
-        }
-        else if (sel.equals("Abril")) {
-            if (month < 3) {
-                year--;
-            }
-            dateInit = DateTime.getDateFisrtDayMonth(4, year);
-            dateFinal = DateTime.getDateLastDayMonth(4, year);
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
-        }
-        else if (sel.equals("Mayo")) {
-            if (month < 4) {
-                year--;
-            }
-            dateInit = DateTime.getDateFisrtDayMonth(5, year);
-            dateFinal = DateTime.getDateLastDayMonth(5, year);
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
-        }
-        else if (sel.equals("Junio")) {
-            if (month < 5) {
-                year--;
-            }
-            dateInit = DateTime.getDateFisrtDayMonth(6, year);
-            dateFinal = DateTime.getDateLastDayMonth(6, year);
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
-        }
-        else if (sel.equals("Julio")) {
-            if (month < 6) {
-                year--;
-            }
-            dateInit = DateTime.getDateFisrtDayMonth(7, year);
-            dateFinal = DateTime.getDateLastDayMonth(7, year);
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
-        }
-        else if (sel.equals("Agosto")) {
-            if (month < 7) {
-                year--;
-            }
-            dateInit = DateTime.getDateFisrtDayMonth(8, year);
-            dateFinal = DateTime.getDateLastDayMonth(8, year);
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
-        }
-        else if (sel.equals("Septiembre")) {
-            if (month < 8) {
-                year--;
-            }
-            dateInit = DateTime.getDateFisrtDayMonth(9, year);
-            dateFinal = DateTime.getDateLastDayMonth(9, year);
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
-        }
-        else if (sel.equals("Octubre")) {
-            if (month < 9) {
-                year--;
-            }
-            dateInit = DateTime.getDateFisrtDayMonth(10, year);
-            dateFinal = DateTime.getDateLastDayMonth(10, year);
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
-        }
-        else if (sel.equals("Noviembre")) {
-            if (month < 10) {
-                year--;
-            }
-            dateInit = DateTime.getDateFisrtDayMonth(11, year);
-            dateFinal = DateTime.getDateLastDayMonth(11, year);
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
-        }
-        else if (sel.equals("Diciembre")) {
-            if (month < 11) {
-                year--;
-            }
-            dateInit = DateTime.getDateFisrtDayMonth(12, year);
-            dateFinal = DateTime.getDateLastDayMonth(12, year);
-            jdcFechaDesde.setDate(dateInit);
-            jdcFechaHasta.setDate(dateFinal);
+        switch (sel) {
+            case "Hoy":
+                jdcFechaDesde.setDate(dateNow);
+                jdcFechaHasta.setDate(dateNow);
+                break;
+            case "Ayer":
+                c.add(Calendar.DAY_OF_YEAR, -1);
+                dateInit = c.getTime();
+                dateFinal = dateInit;
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            case "Ultima semana":
+                c.add(Calendar.DAY_OF_YEAR, -7);
+                dateInit = c.getTime();
+                dateFinal = dateNow;
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            case "Este mes":
+                c.set(Calendar.DATE, 1);
+                dateInit = c.getTime();
+                dateFinal = dateNow;
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            case "Mes anterior":
+                c.set(Calendar.DATE, 1);
+                c.add(Calendar.MONTH, -1);
+                dateInit = c.getTime();
+                c.setTime(dateNow);
+                c.set(Calendar.DATE, 1);
+                c.add(Calendar.DATE, -1);
+                dateFinal = c.getTime();
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            case "Este año":
+                c.set(Calendar.DATE, 1);
+                c.set(Calendar.MONTH, 0);
+                dateInit = c.getTime();
+                dateFinal = dateNow;
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            case "A futuro":
+                dateInit = dateNow;
+                c.add(Calendar.YEAR, 10);
+                c.set(Calendar.MONTH, 0);
+                c.set(Calendar.DATE, 1);
+                c.add(Calendar.DATE, -1);
+                dateFinal = c.getTime();
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            case "Enero":
+                if (month < 0) {
+                    year--;
+                }
+                dateInit = DateTime.getDateFisrtDayMonth(1, year);
+                dateFinal = DateTime.getDateLastDayMonth(1, year);
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            case "Febrero":
+                if (month < 1) {
+                    year--;
+                }
+                dateInit = DateTime.getDateFisrtDayMonth(2, year);
+                dateFinal = DateTime.getDateLastDayMonth(2, year);
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            case "Marzo":
+                if (month < 2) {
+                    year--;
+                }
+                dateInit = DateTime.getDateFisrtDayMonth(3, year);
+                dateFinal = DateTime.getDateLastDayMonth(3, year);
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            case "Abril":
+                if (month < 3) {
+                    year--;
+                }
+                dateInit = DateTime.getDateFisrtDayMonth(4, year);
+                dateFinal = DateTime.getDateLastDayMonth(4, year);
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            case "Mayo":
+                if (month < 4) {
+                    year--;
+                }
+                dateInit = DateTime.getDateFisrtDayMonth(5, year);
+                dateFinal = DateTime.getDateLastDayMonth(5, year);
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            case "Junio":
+                if (month < 5) {
+                    year--;
+                }
+                dateInit = DateTime.getDateFisrtDayMonth(6, year);
+                dateFinal = DateTime.getDateLastDayMonth(6, year);
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            case "Julio":
+                if (month < 6) {
+                    year--;
+                }
+                dateInit = DateTime.getDateFisrtDayMonth(7, year);
+                dateFinal = DateTime.getDateLastDayMonth(7, year);
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            case "Agosto":
+                if (month < 7) {
+                    year--;
+                }
+                dateInit = DateTime.getDateFisrtDayMonth(8, year);
+                dateFinal = DateTime.getDateLastDayMonth(8, year);
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            case "Septiembre":
+                if (month < 8) {
+                    year--;
+                }
+                dateInit = DateTime.getDateFisrtDayMonth(9, year);
+                dateFinal = DateTime.getDateLastDayMonth(9, year);
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            case "Octubre":
+                if (month < 9) {
+                    year--;
+                }
+                dateInit = DateTime.getDateFisrtDayMonth(10, year);
+                dateFinal = DateTime.getDateLastDayMonth(10, year);
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            case "Noviembre":
+                if (month < 10) {
+                    year--;
+                }
+                dateInit = DateTime.getDateFisrtDayMonth(11, year);
+                dateFinal = DateTime.getDateLastDayMonth(11, year);
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            case "Diciembre":
+                if (month < 11) {
+                    year--;
+                }
+                dateInit = DateTime.getDateFisrtDayMonth(12, year);
+                dateFinal = DateTime.getDateLastDayMonth(12, year);
+                jdcFechaDesde.setDate(dateInit);
+                jdcFechaHasta.setDate(dateFinal);
+                break;
+            default:
+                break;
         }
     }//GEN-LAST:event_cmbPeriodoActionPerformed
     

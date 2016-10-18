@@ -37,12 +37,12 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblRange" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jdcFechaDesde" min="-2" max="-2" attributes="0"/>
+                  <Component id="jdcFechaDesde" min="-2" pref="130" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jdcFechaHasta" min="-2" max="-2" attributes="0"/>
+                  <Component id="jdcFechaHasta" min="-2" pref="130" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="cmbPeriodo" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="220" max="32767" attributes="0"/>
+                  <EmptySpace pref="86" max="32767" attributes="0"/>
                   <Component id="btnToPdf" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnToExcel" min="-2" max="-2" attributes="0"/>
