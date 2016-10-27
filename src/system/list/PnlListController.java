@@ -16,11 +16,13 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import messages.VError;
 import messages.VMessage;
+import model.invoice.InvoiceDAO;
 import model.invoice.WShowInvoicePayments;
 import system.config.AppGlobal;
 import system.data.DAOSQL;
@@ -332,6 +334,15 @@ public class PnlListController implements ActionListener{
         
         int idSel = pnlList.getId();
         if (idSel > 0) {
+            try {
+                if (InvoiceDAO.isCanceled(idSel)) {
+                    VMessage.show(wList, "No se puede abonar una factura anulada.");
+                    return -1;
+                }
+            } catch (ClassNotFoundException | SQLException | ParseException ex) {
+                Logger.getLogger(PnlListController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             String windowCode = "WEDIT_PAYMENTS";
             WindowData windowData = null;
             try {

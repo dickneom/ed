@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import model.company.CompanyDAO;
+import system.company.CompanyDAO;
 
 /**
  *

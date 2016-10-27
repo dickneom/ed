@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import messages.VError;
 import model.contract.ContractDAO;
@@ -45,6 +46,8 @@ public class WShowInvoicePayments extends JDialog {
     public WShowInvoicePayments(java.awt.Dialog parent, boolean modal, int idInvoice) {
         super(parent, modal);
         initComponents();
+        
+        ((JPanel) this.getContentPane()).setBorder(javax.swing.BorderFactory.createEtchedBorder());
         
         Invoice invoice = null;
         try {
@@ -107,10 +110,10 @@ public class WShowInvoicePayments extends JDialog {
                     
                     fila[0] = rs.getString("date");
                     fila[1] = rs.getDouble("value");
-                    fila[2] = rs.getDouble("paymentname");
-                    fila[3] = rs.getDouble("depnumber");
-                    fila[4] = rs.getDouble("depdate");
-                    fila[5] = rs.getDouble("depvalue");
+                    fila[2] = rs.getString("paymentname");
+                    fila[3] = rs.getString("paynumber");
+                    fila[4] = rs.getString("paydate");
+                    fila[5] = rs.getDouble("payvalue");
 
                     totalAbonado += value;
 
@@ -204,7 +207,7 @@ public class WShowInvoicePayments extends JDialog {
                         .addComponent(lblInvoiceNumber)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtInvoiceNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
                         .addComponent(lblInvoiceTotal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtInvoiceTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -278,7 +281,7 @@ public class WShowInvoicePayments extends JDialog {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,7 +311,7 @@ public class WShowInvoicePayments extends JDialog {
                 .addComponent(lblPaymentsTotal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPaymetsTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 278, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 400, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtInvoiceBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -343,7 +346,7 @@ public class WShowInvoicePayments extends JDialog {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(525, Short.MAX_VALUE)
+                .addContainerGap(629, Short.MAX_VALUE)
                 .addComponent(btnClose)
                 .addContainerGap())
         );

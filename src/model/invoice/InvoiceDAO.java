@@ -368,5 +368,11 @@ public class InvoiceDAO extends DAOSQL {
         
         return sum;
     }
+
+    public static boolean isCanceled(int idSel) throws ClassNotFoundException, SQLException, ParseException {
+        Invoice invoice = get(idSel);
+        
+        return invoice.isCanceled();
+    }
     
 }
