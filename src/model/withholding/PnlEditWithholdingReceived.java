@@ -68,6 +68,9 @@ public class PnlEditWithholdingReceived extends PnlEdit {
         lblObservations.setText(AppGlobal.getText("WEDIT_WITHHOLDINGRECEIVED_OBSERVATIONS_TEXT") + ":");
         chkCanceled.setText(AppGlobal.getText("WEDIT_WITHHOLDINGRECEIVED_CANCELED_TEXT"));
         
+        
+        
+        
         cmbInvoiceType.removeAllItems();
         Types types = null;
         try {
@@ -92,7 +95,9 @@ public class PnlEditWithholdingReceived extends PnlEdit {
             txtSerie.setText("");
             txtNumber.setText("");
             txtInvoiceType.setText("");
+            txtInvoiceNumber.setText("");
             txtInvoiceCustomer.setText("");
+            txtInvoiceDate.setText("");
             jdcDate.setDate(DateTime.getNow());
             txtValue.setText("0.00");
             chkCanceled.setSelected(false);

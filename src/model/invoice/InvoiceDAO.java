@@ -69,7 +69,7 @@ public class InvoiceDAO extends DAOSQL {
             
             if (i != null && (i.getSerie().equals(invoice.getSerie()) && i.getId() != invoice.getId())) {
                 DknConsole.warning(Thread.currentThread().getStackTrace()[1].toString(), "Campo numero duplicado.");
-                return AppGlobal.getText("INVOICEDAO_ERROR_NUMBERDUPICATED_TEXT");
+                return AppGlobal.getText("INVOICEDAO_ERROR_NUMBERDUPLICATED_TEXT");
             }
         } catch (ClassNotFoundException | SQLException | ParseException ex) {
             Logger.getLogger(InvoiceDAO.class.getName()).log(Level.SEVERE, null, ex);

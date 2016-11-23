@@ -17,6 +17,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import messages.VError;
+import messages.VMessage;
 import model.contract.ContractDAO;
 import model.ente.Ente;
 import model.ente.EnteDAO;
@@ -84,6 +85,9 @@ public class WShowInvoicePayments extends JDialog {
     
     private void load(Invoice invoice) {
         if (invoice != null) {
+            if (invoice.isCanceled()) {
+                VMessage.show(this, "Factura anulada.", "Aviso");
+            }
             totalAbonado = 0.0;
             
             txtInvoiceDate.setText(DateTime.getDateUtilToString(invoice.getDate(), AppGlobal.getFormatDate()));
@@ -91,8 +95,10 @@ public class WShowInvoicePayments extends JDialog {
             totalInvoice = InvoiceDAO.getTotal(invoice);
             txtInvoiceTotal.setText(AppGlobal.getFormatDecimalShort().format(totalInvoice));
             try {
-                Ente customer = EnteDAO.get(ContractDAO.get(invoice.getIdContract()).getIdCustomer());
-                txtInvoiceCustomer.setText(customer.getDni() + " - " + customer.getFullName());
+                if (invoice.getIdContract() > 0) {
+                    Ente customer = EnteDAO.get(ContractDAO.get(invoice.getIdContract()).getIdCustomer());
+                    txtInvoiceCustomer.setText(customer.getDni() + " - " + customer.getFullName());
+                }
             } catch (ClassNotFoundException | SQLException | ParseException ex) {
                 Logger.getLogger(WShowInvoicePayments.class.getName()).log(Level.SEVERE, null, ex);
             }

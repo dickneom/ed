@@ -146,7 +146,7 @@ public class AppGlobal {
         }
 
         if (texto == null) {
-            texto = "Texto no encontrado";
+            texto = key;
             DknConsole.error(Thread.currentThread().getStackTrace()[1].toString(), " Texto no encontrado. Key: " + key);
         }
         
@@ -197,7 +197,7 @@ public class AppGlobal {
      * @throws java.sql.SQLException 
      */
     public static int getLastInvoiceNumber() throws ClassNotFoundException, SQLException {
-        int number = 0;
+        int number;
         
         number = CompanyDAO.get(1).getLastInvoiceNumber();
         
