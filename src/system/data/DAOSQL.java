@@ -386,7 +386,7 @@ public abstract class DAOSQL {
      * Devuelve un <code>List.Map.String, Object..</code> con los datos seleccionado de la base de datos.
      * @param dataBase archivo de la base de datas (ruta completa)
      * @param table nombre de la table o vista donde se realiza la consulta
-     * @param fields fields que se consultaran
+     * @param fields String con los campos que se consultaran
      * @param where condicion para la busqueda
      * @param fieldsOrder expresion de fieldOrder
      * @param group expresion de agrupamiento
@@ -399,7 +399,9 @@ public abstract class DAOSQL {
         
         DknConsole.dBase(Thread.currentThread().getStackTrace()[1].toString(), " SQL: " + sql);
         
-        sql = sql.replace("*", fields);
+        if (fields != null && !fields.isEmpty()) {
+            sql = sql.replace("*", fields);
+        }
         sql = sql.replace("table", table);
         if (where != null && !where.isEmpty()) {
             sql += " WHERE " + where;

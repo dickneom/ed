@@ -172,16 +172,18 @@ public class InvoiceDAO extends DAOSQL {
     /**
      * Devuelve la factura con el codigo indicado.<br>
      * <strong>Para el caso de facturas no utilizar este método ya que no tiene campo code.</strong>
-     * @param code
+     * @param serie
+     * @param number
      * @return
      * @throws ClassNotFoundException
      * @throws SQLException
      * @throws ParseException 
      */
-    public static Invoice get(String code) throws ClassNotFoundException, SQLException, ParseException {
+    public static Invoice getByNumber(String serie, Integer number) throws ClassNotFoundException, SQLException, ParseException {
         Invoice invoice = null;
         
-        LinkedList<HashMap<String, Object>> map = select(AppGlobal.getDataBase(), TABLE, code);
+        String where = "serie = '" + serie + "' AND number = " + number;
+        LinkedList<HashMap<String, Object>> map = select(AppGlobal.getDataBase(), TABLE, null,  where, null, null);
         if (map != null && map.size() > 0) {
             invoice = MapToInvoice(map.getFirst());
         }

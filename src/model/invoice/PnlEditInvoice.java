@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import messages.VMessage;
 import system.config.AppConfig;
 import system.config.AppGlobal;
 import system.config.ConfigData;
@@ -1165,8 +1166,16 @@ public class PnlEditInvoice extends PnlEdit {
             Logger.getLogger(PnlEditInvoice.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (numberStr != null) {
+            String serie = txtSerie.getText();
             int number = Integer.parseInt(numberStr);
-
+            
+            try {
+                if (InvoiceDAO.getByNumber(serie, number) != null) {
+                    VMessage.show(wEdit, "Este número de factura ya esta emitido.", "Mensaje");
+                }
+            } catch (ClassNotFoundException | SQLException | ParseException ex) {
+                Logger.getLogger(PnlEditInvoice.class.getName()).log(Level.SEVERE, null, ex);
+            }
             txtNumber.setText(getNumber(number, AppConfig.getInt(ConfigData.INVOICES_NUMBER_TAM)));
             invoice.setNumber(number);
         }
