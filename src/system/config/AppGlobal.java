@@ -92,12 +92,12 @@ public class AppGlobal {
     }
     
     public static Double getIva(Date date) {
-        Date dateInitIVA14 = DateTime.getDate(2016, 6, 1);
-        Date dateFinIVA14 = DateTime.getDate(2017, 5, 31);
+        Date dateInitIVA14 = DateTime.getDate(2016, 6, 1); // Desde esta fecha  el IVA es 14%
+        Date dateFinIVA14 = DateTime.getDate(2017, 5, 31); // Hasta esta fecha el IVA será del 14% ???
         DknConsole.debug(Thread.currentThread().getStackTrace()[1].toString(), "Fecha: " + DateTime.getDateUtilToString(dateInitIVA14, getFormatDate()));
         DknConsole.debug(Thread.currentThread().getStackTrace()[1].toString(), "Fecha: " + DateTime.getDateUtilToString(dateFinIVA14, getFormatDate()));
         double iva;
-        if (date.before(dateInitIVA14) || date.after(dateFinIVA14)) {
+        if (date.before(dateInitIVA14) || date.after(dateFinIVA14)) { // si la fecha NO esta entre la fecha inicial y final el IVA es 12%
             iva = 12.0;
         }
         else {

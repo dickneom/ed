@@ -135,7 +135,7 @@ public class PnlList extends javax.swing.JPanel {
                 button.setActionCommand(btn.getCommand());
                 button.addActionListener(control);
                 if (btn.getHeight() > 0 && btn.getWidth() > 0) {
-                    int btnWidth = 0, btnHeight = 0;
+                    int btnWidth, btnHeight;
                     btnHeight = btn.getHeight();
                     btnWidth = btn.getWidth();
                     button.setSize(btnWidth, btnHeight);

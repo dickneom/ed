@@ -29,10 +29,10 @@ public enum ConfigData {
     FORMAT_DATE_HOUR_SHORT("FORMAT_DATE_HOUR", "Formato FechaHora", "", "String", "HH:mm"),
     FORMAT_DATE_HOUR_LONG("FORMAT_DATE_HOUR", "Formato FechaHora", "", "String", "HH:mm:ss"),
     FORMAT_DATE_HOUR("FORMAT_DATE_HOUR", "Formato FechaHora", "", "String", "yyyy-MM-dd HH:mm:ss"),
-    FORMAT_NUMBER_DECIMAL_SHORT("FORMAT_NUMBER_DECIMAL_SHORT", "Formato Decmal Corto", "", "String", "### ### ##0.00;(-### ### ##0.00)"),
-    FORMAT_NUMBER_DECIMAL_LONG("FORMAT_NUMBER_DECIMAL_LONG", "Formato Decimal Largo", "", "String", "### ### ##0.0000;(-### ### ##0.0000)"),
+    FORMAT_NUMBER_DECIMAL_SHORT("FORMAT_NUMBER_DECIMAL_SHORT", "Formato Decmal Corto", "", "String", "### ### ##0.00;-### ### ##0.00"),
+    FORMAT_NUMBER_DECIMAL_LONG("FORMAT_NUMBER_DECIMAL_LONG", "Formato Decimal Largo", "", "String", "### ### ##0.0000;-### ### ##0.0000"),
     FORMAT_SEPARATOR_DECIMAL("FORMAT_SEPARATOR_DECIMAL", "Separador Decimal", "", "String", "."),
-    FORMAT_NUMBER_INT("FORMAT_NUMBER_INT", "Formato Enteros", "", "String", "### ### ##0;(-### ### ##0)"),
+    FORMAT_NUMBER_INT("FORMAT_NUMBER_INT", "Formato Enteros", "", "String", "### ### ##0;-### ### ##0"),
     
     COLUMN_WIDTH_ID("COLUMN_WIDTH_ID", "WOPTIONS_PNL_APARIENCIA_COL_WIDTH_ID", "", "Integer", "35"),
     COLUMN_WIDTH_BOOL("COLUMN_WIDTH_BOOL", "WOPTIONS_PNL_APARIENCIA_COL_WIDTH_BOOLEAN", "", "Integer", "20"),

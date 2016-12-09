@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Panel para la edición de un pago.
+ * Se usa dentro de un VEdit.
  */
 package model.payment;
 
@@ -52,7 +51,8 @@ public class PnlEditPayment extends PnlEdit {
     /**
      * Creates new form PnlEditBank
      * @param wEdit
-     * @param id
+     * @param id <code>id</code> del pago, -1 para crear
+     * @param invoiceId id de la factura a ser pagada, -1 si no se identifica la factura
      */
     public PnlEditPayment(WEdit wEdit, int id, int invoiceId) {
         initComponents();
@@ -207,6 +207,7 @@ public class PnlEditPayment extends PnlEdit {
     }
 
     private void showPay() throws ClassNotFoundException, SQLException, ParseException {
+        DknConsole.debug(Thread.currentThread().getStackTrace()[1].toString(), "Metodo de pago: " + payment.getIdPaymentMethod());
         switch (payment.getIdPaymentMethod()) {
             case 5:
             case 8:

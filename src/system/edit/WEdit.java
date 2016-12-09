@@ -38,7 +38,7 @@ public class WEdit extends JDialog {
      * @param owner ventana desde la que se llama.
      * @param window datos de la ventana actual
      * @param parentCode Actualmente no usado
-     * @param id id del registro a modificarse, -1 para crear un nuevo registro
+     * @param id id del registro a editarse, -1 para crear un nuevo registro
      */
     public WEdit(JDialog owner, WindowData window, String parentCode, int id) {
         super(owner, window.isModal());
@@ -93,6 +93,8 @@ public class WEdit extends JDialog {
     
     private void init(int id) {
         if (window != null) {
+            DknConsole.msg(Thread.currentThread().getStackTrace()[1].toString(), "Editando en Código ventana: " + window.getCode() + " el id: " + id);
+            
             if (window.getWidth() > 0 && window.getHeight() > 0) {
                 setSize(window.getWidth(), window.getHeight());
             }
