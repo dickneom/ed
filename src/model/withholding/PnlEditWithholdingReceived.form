@@ -169,7 +169,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtSerie">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
+        <Property name="text" type="java.lang.String" value="txtSerie"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblId">
@@ -179,7 +179,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtNumber">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField2"/>
+        <Property name="text" type="java.lang.String" value="txtNumber"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblInvoiceType">
@@ -190,7 +190,7 @@
     <Component class="javax.swing.JTextField" name="txtInvoiceType">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
-        <Property name="text" type="java.lang.String" value="jTextField3"/>
+        <Property name="text" type="java.lang.String" value="txtInvoiceType"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblInvoiceNumber">
@@ -201,7 +201,7 @@
     <Component class="javax.swing.JTextField" name="txtInvoiceCustomer">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
+        <Property name="text" type="java.lang.String" value="txtInvoiceCustomer"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblDate">
@@ -229,7 +229,7 @@
     <Component class="javax.swing.JTextField" name="txtValue">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="11"/>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
+        <Property name="text" type="java.lang.String" value="txtValue"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="chkCanceled">
@@ -271,7 +271,7 @@
     <Component class="javax.swing.JTextField" name="txtInvoiceNumber">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
+        <Property name="text" type="java.lang.String" value="txtInvoiceNumber"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblInvoiceDate">
@@ -282,7 +282,7 @@
     <Component class="javax.swing.JTextField" name="txtInvoiceDate">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
+        <Property name="text" type="java.lang.String" value="txtInvoiceDate"/>
       </Properties>
     </Component>
   </SubComponents>

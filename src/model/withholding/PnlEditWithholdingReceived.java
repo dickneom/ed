@@ -232,21 +232,21 @@ public class PnlEditWithholdingReceived extends PnlEdit {
 
         lblNumber.setText("jLabel1");
 
-        txtSerie.setText("jTextField1");
+        txtSerie.setText("txtSerie");
 
         lblId.setText("jLabel2");
 
-        txtNumber.setText("jTextField2");
+        txtNumber.setText("txtNumber");
 
         lblInvoiceType.setText("jLabel4");
 
         txtInvoiceType.setEditable(false);
-        txtInvoiceType.setText("jTextField3");
+        txtInvoiceType.setText("txtInvoiceType");
 
         lblInvoiceNumber.setText("jLabel1");
 
         txtInvoiceCustomer.setEditable(false);
-        txtInvoiceCustomer.setText("jTextField1");
+        txtInvoiceCustomer.setText("txtInvoiceCustomer");
 
         lblDate.setText("jLabel1");
 
@@ -257,7 +257,7 @@ public class PnlEditWithholdingReceived extends PnlEdit {
         txtObservations.setText("jTextField1");
 
         txtValue.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        txtValue.setText("jTextField1");
+        txtValue.setText("txtValue");
 
         chkCanceled.setText("jCheckBox1");
 
@@ -278,12 +278,12 @@ public class PnlEditWithholdingReceived extends PnlEdit {
         lblInvoice.setText("jLabel1");
 
         txtInvoiceNumber.setEditable(false);
-        txtInvoiceNumber.setText("jTextField1");
+        txtInvoiceNumber.setText("txtInvoiceNumber");
 
         lblInvoiceDate.setText("jLabel1");
 
         txtInvoiceDate.setEditable(false);
-        txtInvoiceDate.setText("jTextField1");
+        txtInvoiceDate.setText("txtInvoiceDate");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

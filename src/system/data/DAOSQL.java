@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import system.config.AppGlobal;
 
 /**
- *
+ * 
  * @author DickNeoM
  */
 public abstract class DAOSQL {
@@ -57,11 +57,11 @@ public abstract class DAOSQL {
      * Sirve para insertar o actualizar un registro.<br>
      * Si el "id" es menor que 0 (-1) se inserta caso contrario se actualiza.
      * El id es el primer valor de arreglo values.
-     * @param dataBase
-     * @param table
+     * @param dataBase url de la base de datos
+     * @param table nombre de la tabla
      * @param fieldsName arreglo con el nombre de los fields, el primer field deber ser "id"
      * @param values arreglo con los valores para cada campo en el arreglo <b>fieldsName</b>, el primer valor es el del "id"
-     * @return
+     * @return el número de registros actualizados o insertados
      * @throws ClassNotFoundException
      * @throws SQLException 
      */
@@ -148,7 +148,16 @@ public abstract class DAOSQL {
     }
     
     
-    
+    /**
+     * Elimina un registro dado su id.<br>
+     * La tabla debe tener el un campo "<code>id</code>".
+     * @param dataBase url de la base de datos
+     * @param table nombre de la tabla
+     * @param id id del registro
+     * @return El número de registros borrados, siempre debería se 1
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
     public static int delete(String dataBase, String table, int id) throws ClassNotFoundException, SQLException {
         String sql = "DELETE FROM table WHERE id = ?";
         sql = sql.replace("table", table);
@@ -164,6 +173,16 @@ public abstract class DAOSQL {
         return rowsAffected;
     }
     
+    /**
+     * Elimina registros que tiene el valor de <code>value</code> en el campo <code>field</code>
+     * @param dataBase url de la base de datos
+     * @param table nombre de la tabla
+     * @param field nombre del campo
+     * @param value valor que debe tener el campo
+     * @return El número de registros borrados
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public static int delete(String dataBase, String table, String field, int value) throws SQLException, ClassNotFoundException {
         String sql = "DELETE FROM table WHERE field = ?";
         sql = sql.replace("table", table);
@@ -183,7 +202,7 @@ public abstract class DAOSQL {
     
     /**
      * Anula un registro.<br><br>
-     * <b>La tabla debe contener un campo "canceled" para poder anular un registro.</b><br>
+     * <b>La tabla debe contener un campo "<code>canceled</code>" para poder anular un registro.</b><br>
      * @param dataBase
      * @param table
      * @param id
@@ -219,13 +238,36 @@ public abstract class DAOSQL {
     
     
     
-    
+    /**
+     * Retorna todos los registros de una tabla, en el orden indicado.<br>
+     * Se retorna una <code>LinkedList</code> de <code>HashMap</code>, en los que
+     * cada <code>key</code> es el nombre de un campo y su valor es el valor contenido
+     * en el campo.
+     * @param dataBase url de la base de datos
+     * @param table nombre de la tabla
+     * @param fieldOrder nombre del campo que ordena
+     * @return Una lista de valores, en los que cada registro es un map propiedad->valor
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
     protected static LinkedList<HashMap<String, Object>> selectAll(String dataBase, String table, String fieldOrder) throws ClassNotFoundException, SQLException {
         return DAOSQL.select(dataBase, table, null, null, true, fieldOrder);
     }
     
     
-    
+    /**
+     * Retorna registros de una tabla, cuyo campo <code>code</code> tiene el valor indicado.<br>
+     * La tabla debe tener un campo <code>code</code>
+     * Se retorna una <code>LinkedList</code> de <code>HashMap</code>, en los que
+     * cada <code>key</code> es el nombre de un campo y su valor es el valor contenido
+     * en el campo.
+     * @param dataBase url de la base de datos
+     * @param table nombre de la tabla
+     * @param code valor del campo <code>code</code>
+     * @return Una lista de valores, en los que cada registro es un map propiedad->valor
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
     protected static LinkedList<HashMap<String, Object>> select(String dataBase, String table, String code) throws ClassNotFoundException, SQLException {
         return DAOSQL.select(dataBase, table, "code", code, true, "code");
     }
@@ -313,7 +355,16 @@ public abstract class DAOSQL {
     
     
     
-    
+    /**
+     * Retorna un registro con el id indicado.<br>
+     * El registro es retornado como un <code>LinkedList</code> de <code>HashMap</code>, con la propiedades del registro.
+     * @param dataBase url de la base de datos
+     * @param table nombre de la tabla
+     * @param id <code>int</code> con del valor del "<code>id</code>"
+     * @return el registro con el "<code>id</code>" indicado
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
     protected static LinkedList<HashMap<String, Object>> select(String dataBase, String table, int id) throws ClassNotFoundException, SQLException {
         return DAOSQL.select(dataBase, table, "id", id, "");
     }
@@ -321,12 +372,13 @@ public abstract class DAOSQL {
     
     /**
      * Devuelve un <code>List.Map.String, Object..</code> con los datos seleccionado de la base de datos.
-     * @param dataBase
-     * @param table
-     * @param fieldSearch
+     * @param dataBase url de la base de datos
+     * @param table nombre de la tabla
+     * @param fieldSearch nombre del campo de busqueda
      * @param valueSearch <code>int</code> con el valor a buscar
-     * @param fieldOrder
-     * @return
+     * @param fieldOrder nombre del campo de orden
+     * @return los registros que cumplen con con la condición, el valor del campo
+     * <code>fieldSearch</code> es igual a <code>valueSearch</code>
      * @throws ClassNotFoundException
      * @throws SQLException 
      */
@@ -336,13 +388,14 @@ public abstract class DAOSQL {
     
     /**
      * Devuelve un <code>List.Map.String, Object..</code> con los datos seleccionado de la base de datos.
-     * @param dataBase
-     * @param table
-     * @param fields
-     * @param fieldSearch
+     * @param dataBase url de la base de datos
+     * @param table nombre de la tabla
+     * @param fields <code>String</code> con los campos a ser retornados separados con comas (,).
+     * @param fieldSearch nombre del campo de busqueda
      * @param valueSearch <code>int</code> con el valor a buscar
-     * @param fieldsOrder
-     * @return
+     * @param fieldsOrder nombre del campo de orden
+     * @return los registros que cumplen con con la condición, el valor del campo
+     * <code>fieldSearch</code> es igual a <code>valueSearch</code>
      * @throws ClassNotFoundException
      * @throws SQLException 
      */
